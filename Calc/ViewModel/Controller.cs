@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace Calc.ViewModel
 {
-    public class Transmitter : INotifyPropertyChanged
+    public class Contoller : INotifyPropertyChanged
     {
         public string СontentOnButton { get; set; }
         public double Number { get; set; }
