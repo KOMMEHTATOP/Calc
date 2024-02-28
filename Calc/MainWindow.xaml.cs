@@ -97,7 +97,7 @@ namespace Calc
             string buttonContent = button.Content.ToString();
             if (calculatorModel.state == State.First)
             {
-                calculatorModel.firstState.OnResultClicked(buttonContent, this); 
+                calculatorModel.firstState.OnResultClicked(buttonContent, this);
             }
             else if (calculatorModel.state == State.Opers)
             {
@@ -138,6 +138,20 @@ namespace Calc
             //    $"first={calculatorModel.firstNumber}, " +
             //    $"second = {calculatorModel.secondNumber} " +
             //    $"result = {calculatorModel.result} operator = {calculatorModel.mathOperator}");
+        }
+
+        private void History_Click(object sender, RoutedEventArgs e)
+        {
+            if (calculatorModel.isHistoryVisible)
+            {
+                HistoryList.Visibility = Visibility.Collapsed;
+                calculatorModel.isHistoryVisible = false;
+            }
+            else
+            {
+                HistoryList.Visibility = Visibility.Visible;
+                calculatorModel.isHistoryVisible = true;
+            }
         }
     }
 }
