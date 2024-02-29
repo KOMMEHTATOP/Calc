@@ -28,11 +28,10 @@ namespace Calc.Model
         {
             mainWindow.calculatorModel.state = State.Opers;
             mainWindow.calculatorModel.secondNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.calculatorModel.Calculate(mainWindow);
+            mainWindow.calculatorModel.Calculate(mainWindow); //вроде тут дубляж истории
 
             mainWindow.calculatorModel.mathOperator = buttonContent;
             mainWindow.calculatorModel.firstNumber = mainWindow.calculatorModel.result;
-
         }
 
         public void OnResultClicked(string buttonContent, MainWindow mainWindow)

@@ -26,7 +26,7 @@ namespace Calc.Model
             }
 
             mainWindow.Dial.Text += buttonContent;
-            mainWindow.calculatorModel.canBeRefreshed = false; //без флага перетираю конкатенацию числа. 
+            mainWindow.calculatorModel.canBeRefreshed = false;  
         }
         public void OnOperClicked(string buttonContent, MainWindow mainWindow)
         {

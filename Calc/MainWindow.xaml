@@ -75,12 +75,21 @@
                 <Button Content="9" Grid.Column="2" Grid.Row="0"/>
                 <Button Content="," Grid.Column="2" Grid.Row="5"/>
             </Grid>
-            <ListBox x:Name="HistoryList" 
-                     d:ItemsSource="{d:SampleData ItemCount=0}" 
-                     Grid.ColumnSpan="4" Grid.RowSpan="6" 
-                     Visibility="Collapsed" TextElement.FontSize="15" 
-                     TextBlock.TextAlignment="Right"  HorizontalContentAlignment="Right"/>
-
+            <ListBox x:Name="HistoryListView" 
+                     d:ItemsSource="{Binding historyItems}" 
+                     Grid.ColumnSpan="4" Grid.RowSpan="6"
+                     Visibility="Collapsed"
+                     TextBlock.TextAlignment="Right"  
+                     HorizontalContentAlignment="Right">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding key}" FontSize="14"/>
+                            <TextBlock Text="{Binding value}" FontSize="26" FontWeight="Bold"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </Grid>
     </Grid>
 

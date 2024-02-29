@@ -11,8 +11,19 @@ namespace Calc.Model
 {
     public class HistoryItem
     {
-        public string key;
-        public string value;
+        private string _key;
+        public string key
+        {
+            get { return _key; }
+            set { _key = value; }
+        }
+
+        private string _value;
+        public string value
+        {
+            get { return _value; }
+            set { _value = value; }
+        }
 
         public HistoryItem(string key, string value)
         {
@@ -21,8 +32,7 @@ namespace Calc.Model
         }
         public override string ToString()
         {
-            return $"{key} \n{value}";
+            return $"{key} {value}";
         }
-
     }
 }

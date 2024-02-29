@@ -36,6 +36,18 @@ namespace Calc
                     button.Click += Number_Click;
                 }
             }
+            calculatorModel.DialTextChanged += OnDialTextChanged;
+            calculatorModel.LastOpTextChanged += OnLastOperationChanged;
+        }
+
+        private void OnDialTextChanged(string text)
+        {
+            Dial.Text = text;
+        }
+
+        private void OnLastOperationChanged(string text)
+        {
+            LastOperation.Text = text;
         }
 
         private void Number_Click(object sender, RoutedEventArgs e)
@@ -144,12 +156,12 @@ namespace Calc
         {
             if (calculatorModel.isHistoryVisible)
             {
-                HistoryList.Visibility = Visibility.Collapsed;
+                HistoryListView.Visibility = Visibility.Collapsed;
                 calculatorModel.isHistoryVisible = false;
             }
             else
             {
-                HistoryList.Visibility = Visibility.Visible;
+                HistoryListView.Visibility = Visibility.Visible;
                 calculatorModel.isHistoryVisible = true;
             }
         }

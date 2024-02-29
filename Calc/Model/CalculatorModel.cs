@@ -9,6 +9,8 @@ using System.Windows.Input;
 
 namespace Calc.Model
 {
+    public delegate void DialTextChanged(string text);
+    public delegate void LastOpTextChanged(string text);
     public class CalculatorModel
     {
         public State state = State.First;
@@ -25,6 +27,15 @@ namespace Calc.Model
         public OpersState opersState = new OpersState();
         public ResultState resultState = new ResultState();
 
+        //сделать недостающие поля
+        //сделать ивент и при изменении модели менять вью
+
+        public string DialText;
+        public string LastOperation;
+
+        public event DialTextChanged DialTextChanged;
+        public event LastOpTextChanged LastOpTextChanged;
+
         public void Calculate(MainWindow mainWindow)
         {
             if (mathOperator == "+")
@@ -36,13 +47,16 @@ namespace Calc.Model
                 result = Math.Round(firstNumber - secondNumber, 2);
             }
 
-            mainWindow.Dial.Text = result.ToString();
-            mainWindow.LastOperation.Text = firstNumber + mathOperator + secondNumber + "=";
+            DialText = result.ToString();
+            DialTextChanged?.Invoke(DialText);
+
+            LastOperation = firstNumber + mathOperator + secondNumber + "=";
+            LastOpTextChanged?.Invoke(LastOperation);
+
+            //mainWindow.LastOperation.Text = firstNumber + mathOperator + secondNumber + "=";
+            HistoryItem historyItem = new HistoryItem(mainWindow.LastOperation.Text, result.ToString());
             historyItems.Add(new HistoryItem(mainWindow.LastOperation.Text, result.ToString()));
-            foreach (var item in historyItems)
-            {
-                mainWindow.HistoryList.Items.Add(item);
-            }
+            mainWindow.HistoryListView.Items.Add(historyItem);
         }
 
         public void CheckZeroAndDot(string buttonContent, MainWindow mainWindow)
