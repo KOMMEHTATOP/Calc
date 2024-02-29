@@ -9,36 +9,36 @@ namespace Calc.Model
 {
     public class SecondState
     {
-        public void OnNumberClicked(string buttonContent, MainWindow mainWindow)
+        public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            if (buttonContent == "0" && mainWindow.Dial.Text == "0")
+            if (buttonContent == "0" && calculatorModel.DialText == "0")
             {
                 return;
             }
 
-            if (buttonContent == "," && mainWindow.Dial.Text.Contains(","))
+            if (buttonContent == "," && calculatorModel.DialText.Contains(","))
             {
                 return;
             }
 
-            mainWindow.Dial.Text += buttonContent;
+            calculatorModel.SetDialText(buttonContent);
         }
 
-        public void OnOperClicked(string buttonContent, MainWindow mainWindow)
+        public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.state = State.Opers;
-            mainWindow.calculatorModel.secondNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.calculatorModel.Calculate(mainWindow); //вроде тут дубляж истории
+            calculatorModel.state = State.Opers;
+            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.Calculate(); 
 
-            mainWindow.calculatorModel.mathOperator = buttonContent;
-            mainWindow.calculatorModel.firstNumber = mainWindow.calculatorModel.result;
+            calculatorModel.MathOperator = buttonContent;
+            calculatorModel.SetFirstNumber(calculatorModel.Result);
         }
 
-        public void OnResultClicked(string buttonContent, MainWindow mainWindow)
+        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.state = State.Result;
-            mainWindow.calculatorModel.secondNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.calculatorModel.Calculate(mainWindow);
+            calculatorModel.state = State.Result;
+            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.Calculate();
         }
     }
 }

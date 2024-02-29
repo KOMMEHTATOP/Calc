@@ -13,15 +13,17 @@ namespace Calc.Model
     public delegate void DialTextChanged(string text);
     public delegate void LastOpTextChanged(string text);
     public delegate void HistoryViewChanged(HistoryItem historyItem);
+    public delegate void FirstNumberChanged(double firstNumber);
+
     public class CalculatorModel
     {
         public State state = State.First;
-        public double firstNumber;
-        public double secondNumber;
-        public string mathOperator;
-        public double result;
-        public bool canBeRefreshed = true;
-        public bool isHistoryVisible = false;
+        public double FirstNumber { get; private set; }
+        public double SecondNumber;
+        public string MathOperator;
+        public double Result;
+        public bool CanBeRefreshed = true;
+        public bool IsHistoryVisible = false;
         public List<HistoryItem> historyItems = new List<HistoryItem>();
 
         public FirstState firstState = new FirstState();
@@ -34,35 +36,49 @@ namespace Calc.Model
 
         public string DialText;
         public string LastOperation;
-        public ListBox ListBoxHistory;
 
         public event DialTextChanged DialTextChanged;
         public event LastOpTextChanged LastOpTextChanged;
         public event HistoryViewChanged HistoryViewChanged;
+        public event FirstNumberChanged FirstNumberChanged;
 
-        public void Calculate(MainWindow mainWindow)
+        public void SetDialText(string text)
         {
-            if (mathOperator == "+")
+            DialText = text;
+            DialTextChanged.Invoke(text);
+        }
+
+        public void SetLastOperation(string text)
+        {
+            LastOperation = text;
+            LastOpTextChanged.Invoke(text);
+        }
+
+        public void SetFirstNumber(double firstNumber)
+        {
+            FirstNumber = firstNumber;
+            FirstNumberChanged.Invoke(firstNumber);
+        }
+
+        public void Calculate()
+        {
+            if (MathOperator == "+")
             {
-                result = Math.Round(firstNumber + secondNumber, 2);
+                Result = Math.Round(FirstNumber + SecondNumber, 2);
             }
-            else if (mathOperator == "-")
+            else if (MathOperator == "-")
             {
-                result = Math.Round(firstNumber - secondNumber, 2);
+                Result = Math.Round(FirstNumber - SecondNumber, 2);
             }
 
-            DialText = result.ToString();
-            DialTextChanged?.Invoke(DialText);
+            SetDialText(Result.ToString());
 
-            LastOperation = firstNumber + mathOperator + secondNumber + "=";
+            LastOperation = FirstNumber + MathOperator + SecondNumber + "=";
             LastOpTextChanged?.Invoke(LastOperation);
 
-            HistoryItem historyItem = new HistoryItem(LastOperation, result.ToString());
-            historyItems.Add(new HistoryItem(LastOperation, result.ToString()));
+            HistoryItem historyItem = new HistoryItem(LastOperation, Result.ToString());
+            historyItems.Add(new HistoryItem(LastOperation, Result.ToString()));
             HistoryViewChanged?.Invoke(historyItem);
-            
-            //mainWindow.LastOperation.Text = firstNumber + mathOperator + secondNumber + "=";
-            //mainWindow.HistoryListView.Items.Add(historyItem);
         }
 
         public void CheckZeroAndDot(string buttonContent, MainWindow mainWindow)

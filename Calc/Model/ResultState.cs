@@ -9,35 +9,37 @@ namespace Calc.Model
 {
     public class ResultState
     {
-        public void OnNumberClicked(string buttonContent, MainWindow mainWindow)
+        public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             if (buttonContent == "=")
             {
-                mainWindow.calculatorModel.state = State.First;
-                mainWindow.Dial.Text = buttonContent;
-                mainWindow.LastOperation.Text = string.Empty;
+                calculatorModel.state = State.First;
+                calculatorModel.DialText = buttonContent;
+                calculatorModel.SetLastOperation(string.Empty);
             }
             else 
             {
-                mainWindow.calculatorModel.state = State.Opers;
-                mainWindow.Dial.Text = buttonContent;
-                mainWindow.LastOperation.Text = mainWindow.calculatorModel.result + mainWindow.calculatorModel.mathOperator;
+                calculatorModel.state = State.Opers;
+                calculatorModel.DialText = buttonContent;
+                string v = calculatorModel.Result + calculatorModel.MathOperator;
+                calculatorModel.SetLastOperation(v);
             }
         }
 
-        public void OnOperClicked(string buttonContent, MainWindow mainWindow)
+        public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.state = State.Opers;
-            mainWindow.calculatorModel.mathOperator = buttonContent;
-            mainWindow.calculatorModel.canBeRefreshed = true;
-            mainWindow.calculatorModel.firstNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.LastOperation.Text = mainWindow.calculatorModel.firstNumber + mainWindow.calculatorModel.mathOperator;
+            calculatorModel.state = State.Opers;
+            calculatorModel.MathOperator = buttonContent;
+            calculatorModel.CanBeRefreshed = true;
+            calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
+            string v = calculatorModel.FirstNumber + calculatorModel.MathOperator;
+            calculatorModel.SetLastOperation(v);
         }
 
-        public void OnResultClicked(string buttonContent, MainWindow mainWindow)
+        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.firstNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.calculatorModel.Calculate(mainWindow);
+            calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
+            calculatorModel.Calculate();
         }
     }
 }

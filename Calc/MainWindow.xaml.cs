@@ -24,7 +24,7 @@ namespace Calc
             InitializeComponent();
             calculatorModel = new CalculatorModel();
             Loaded += MainWindow_Loaded;
-            Dial.Text = calculatorModel.result.ToString();
+            Dial.Text = calculatorModel.Result.ToString();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -39,6 +39,12 @@ namespace Calc
             calculatorModel.DialTextChanged += OnDialTextChanged;
             calculatorModel.LastOpTextChanged += OnLastOperationChanged;
             calculatorModel.HistoryViewChanged += OnHistoryViewChanged;
+            calculatorModel.FirstNumberChanged += OnFirstNumberChanged;
+        }
+
+        private void OnFirstNumberChanged(double firstNumber)
+        {
+            
         }
 
         private void OnHistoryViewChanged(HistoryItem historyItem)
@@ -64,26 +70,26 @@ namespace Calc
 
             if (calculatorModel.state == State.First)
             {
-                calculatorModel.firstState.OnNumberClicked(buttonContent, this);
+                calculatorModel.firstState.OnNumberClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Opers)
             {
-                calculatorModel.opersState.OnNumberClicked(buttonContent, this);
+                calculatorModel.opersState.OnNumberClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Second)
             {
-                calculatorModel.secondState.OnNumberClicked(buttonContent, this);
+                calculatorModel.secondState.OnNumberClicked(buttonContent, calculatorModel);
             }
             else
             {
-                calculatorModel.resultState.OnNumberClicked(buttonContent, this);
+                calculatorModel.resultState.OnNumberClicked(buttonContent, calculatorModel);
             }
             Log(oldState, "Number_Click");
         }
 
         private void Oper_Click(object sender, RoutedEventArgs e)
         {
-            calculatorModel.canBeRefreshed = true;
+            calculatorModel.CanBeRefreshed = true;
 
             var oldState = calculatorModel.state;
             Button button = sender as Button;
@@ -91,19 +97,19 @@ namespace Calc
 
             if (calculatorModel.state == State.First)
             {
-                calculatorModel.firstState.OnOperClicked(buttonContent, this);
+                calculatorModel.firstState.OnOperClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Opers)
             {
-                calculatorModel.opersState.OnOperClicked(buttonContent, this);
+                calculatorModel.opersState.OnOperClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Second)
             {
-                calculatorModel.secondState.OnOperClicked(buttonContent, this);
+                calculatorModel.secondState.OnOperClicked(buttonContent, calculatorModel);
             }
             else
             {
-                calculatorModel.resultState.OnOperClicked(buttonContent, this);
+                calculatorModel.resultState.OnOperClicked(buttonContent, calculatorModel);
             }
             Log(oldState, "Oper_Click");
         }
@@ -115,19 +121,19 @@ namespace Calc
             string buttonContent = button.Content.ToString();
             if (calculatorModel.state == State.First)
             {
-                calculatorModel.firstState.OnResultClicked(buttonContent, this);
+                calculatorModel.firstState.OnResultClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Opers)
             {
-                calculatorModel.opersState.OnResultClicked(buttonContent, this);
+                calculatorModel.opersState.OnResultClicked(buttonContent, calculatorModel);
             }
             else if (calculatorModel.state == State.Second)
             {
-                calculatorModel.secondState.OnResultClicked(buttonContent, this);
+                calculatorModel.secondState.OnResultClicked(buttonContent, calculatorModel);
             }
             else
             {
-                calculatorModel.resultState.OnResultClicked(buttonContent, this);
+                calculatorModel.resultState.OnResultClicked(buttonContent, calculatorModel);
             }
             Log(oldState, "Result_Click");
         }
@@ -135,13 +141,13 @@ namespace Calc
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
             calculatorModel.state = State.First;
-            calculatorModel.result = 0;
-            Dial.Text = calculatorModel.result.ToString();
-            calculatorModel.firstNumber = 0;
-            calculatorModel.secondNumber = 0;
+            calculatorModel.Result = 0;
+            Dial.Text = calculatorModel.Result.ToString();
+            calculatorModel.SetFirstNumber(0);
+            calculatorModel.SecondNumber = 0;
             LastOperation.Text = string.Empty;
-            calculatorModel.canBeRefreshed = true;
-            calculatorModel.mathOperator = string.Empty;
+            calculatorModel.CanBeRefreshed = true;
+            calculatorModel.MathOperator = string.Empty;
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
@@ -160,15 +166,15 @@ namespace Calc
 
         private void History_Click(object sender, RoutedEventArgs e)
         {
-            if (calculatorModel.isHistoryVisible)
+            if (calculatorModel.IsHistoryVisible)
             {
                 HistoryListView.Visibility = Visibility.Collapsed;
-                calculatorModel.isHistoryVisible = false;
+                calculatorModel.IsHistoryVisible = false;
             }
             else
             {
                 HistoryListView.Visibility = Visibility.Visible;
-                calculatorModel.isHistoryVisible = true;
+                calculatorModel.IsHistoryVisible = true;
             }
         }
     }

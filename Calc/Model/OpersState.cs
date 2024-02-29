@@ -8,53 +8,53 @@ namespace Calc.Model
 {
     public class OpersState
     {
-        public void OnNumberClicked(string buttonContent, MainWindow mainWindow)
+        public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.state = State.Second;
-            if (mainWindow.calculatorModel.canBeRefreshed)
+            calculatorModel.state = State.Second;
+            if (calculatorModel.CanBeRefreshed)
             {
                 if (buttonContent == ",")
                 {
-                    mainWindow.Dial.Text = "0,";
+                    calculatorModel.DialText = "0,";
                 }
                 else
                 {
-                    mainWindow.Dial.Text = buttonContent;
-                    mainWindow.calculatorModel.canBeRefreshed = false;
+                    calculatorModel.DialText = buttonContent;
+                    calculatorModel.CanBeRefreshed = false;
                 }
             }
 
-            if (buttonContent == "," && mainWindow.Dial.Text.Contains(","))
+            if (buttonContent == "," && calculatorModel.DialText.Contains(","))
             {
                 return;
             }
-
         }
 
-        public void OnOperClicked(string buttonContent, MainWindow mainWindow)
+        public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             if (buttonContent == "+" || buttonContent == "-")
             {
-                mainWindow.calculatorModel.state = State.Opers;
-                mainWindow.calculatorModel.mathOperator = buttonContent;
-                mainWindow.LastOperation.Text = mainWindow.Dial.Text + mainWindow.calculatorModel.mathOperator;
+                calculatorModel.state = State.Opers;
+                calculatorModel.MathOperator = buttonContent;
+                string v = calculatorModel.DialText + calculatorModel.MathOperator;
+                calculatorModel.SetLastOperation(v);
             }
             else
             {
-                mainWindow.calculatorModel.state = State.Result;
-                mainWindow.calculatorModel.mathOperator = buttonContent;
-                mainWindow.calculatorModel.secondNumber = double.Parse(mainWindow.Dial.Text);
-                mainWindow.calculatorModel.Calculate(mainWindow);
-                mainWindow.LastOperation.Text = mainWindow.Dial.Text + mainWindow.calculatorModel.mathOperator;
-
+                calculatorModel.state = State.Result;
+                calculatorModel.MathOperator = buttonContent;
+                calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+                calculatorModel.Calculate();
+                string v = calculatorModel.DialText + calculatorModel.MathOperator;
+                calculatorModel.SetLastOperation(v);
             }
         }
 
-        public void OnResultClicked(string buttonContent, MainWindow mainWindow)
+        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-            mainWindow.calculatorModel.state = State.Result;
-            mainWindow.calculatorModel.secondNumber = double.Parse(mainWindow.Dial.Text);
-            mainWindow.calculatorModel.Calculate(mainWindow);
+            calculatorModel.state = State.Result;
+            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.Calculate();
         }
     }
 }
