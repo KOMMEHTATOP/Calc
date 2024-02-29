@@ -38,6 +38,12 @@ namespace Calc
             }
             calculatorModel.DialTextChanged += OnDialTextChanged;
             calculatorModel.LastOpTextChanged += OnLastOperationChanged;
+            calculatorModel.HistoryViewChanged += OnHistoryViewChanged;
+        }
+
+        private void OnHistoryViewChanged(HistoryItem historyItem)
+        {
+            HistoryListView.Items.Add(historyItem);
         }
 
         private void OnDialTextChanged(string text)

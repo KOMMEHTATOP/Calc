@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Calc.Model
 {
     public delegate void DialTextChanged(string text);
     public delegate void LastOpTextChanged(string text);
+    public delegate void HistoryViewChanged(HistoryItem historyItem);
     public class CalculatorModel
     {
         public State state = State.First;
@@ -32,9 +34,11 @@ namespace Calc.Model
 
         public string DialText;
         public string LastOperation;
+        public ListBox ListBoxHistory;
 
         public event DialTextChanged DialTextChanged;
         public event LastOpTextChanged LastOpTextChanged;
+        public event HistoryViewChanged HistoryViewChanged;
 
         public void Calculate(MainWindow mainWindow)
         {
@@ -53,10 +57,12 @@ namespace Calc.Model
             LastOperation = firstNumber + mathOperator + secondNumber + "=";
             LastOpTextChanged?.Invoke(LastOperation);
 
+            HistoryItem historyItem = new HistoryItem(LastOperation, result.ToString());
+            historyItems.Add(new HistoryItem(LastOperation, result.ToString()));
+            HistoryViewChanged?.Invoke(historyItem);
+            
             //mainWindow.LastOperation.Text = firstNumber + mathOperator + secondNumber + "=";
-            HistoryItem historyItem = new HistoryItem(mainWindow.LastOperation.Text, result.ToString());
-            historyItems.Add(new HistoryItem(mainWindow.LastOperation.Text, result.ToString()));
-            mainWindow.HistoryListView.Items.Add(historyItem);
+            //mainWindow.HistoryListView.Items.Add(historyItem);
         }
 
         public void CheckZeroAndDot(string buttonContent, MainWindow mainWindow)
