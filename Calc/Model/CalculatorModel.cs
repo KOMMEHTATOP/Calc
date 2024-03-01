@@ -14,12 +14,15 @@ namespace Calc.Model
     public delegate void LastOpTextChanged(string text);
     public delegate void HistoryViewChanged(HistoryItem historyItem);
     public delegate void FirstNumberChanged(double firstNumber);
+    public delegate void SecondNumberChanged(double secondNumber);
 
     public class CalculatorModel
     {
-        public State state = State.First;
+        public State state { get; set; } = State.First;
+        public string DialText { get; private set; } = "0";
+        public string LastOperation { get; private set; }
         public double FirstNumber { get; private set; }
-        public double SecondNumber;
+        public double SecondNumber { get; private set; }
         public string MathOperator;
         public double Result;
         public bool CanBeRefreshed = true;
@@ -31,16 +34,11 @@ namespace Calc.Model
         public OpersState opersState = new OpersState();
         public ResultState resultState = new ResultState();
 
-        //сделать недостающие поля
-        //сделать ивент и при изменении модели менять вью
-
-        public string DialText;
-        public string LastOperation;
-
         public event DialTextChanged DialTextChanged;
         public event LastOpTextChanged LastOpTextChanged;
         public event HistoryViewChanged HistoryViewChanged;
         public event FirstNumberChanged FirstNumberChanged;
+        public event SecondNumberChanged SecondNumberChanged;
 
         public void SetDialText(string text)
         {
@@ -52,6 +50,12 @@ namespace Calc.Model
         {
             LastOperation = text;
             LastOpTextChanged.Invoke(text);
+        }
+
+        public void SetSecondNumber(double secondNumber)
+        {
+            SecondNumber = secondNumber;
+            SecondNumberChanged.Invoke(secondNumber);
         }
 
         public void SetFirstNumber(double firstNumber)
@@ -70,6 +74,14 @@ namespace Calc.Model
             {
                 Result = Math.Round(FirstNumber - SecondNumber, 2);
             }
+            else if (MathOperator == "*")
+            {
+                Result = Math.Round(FirstNumber * SecondNumber, 2);
+            }
+            else if (MathOperator == "/")
+            {
+                Result = Math.Round(FirstNumber / SecondNumber, 2);
+            }
 
             SetDialText(Result.ToString());
 
@@ -80,19 +92,5 @@ namespace Calc.Model
             historyItems.Add(new HistoryItem(LastOperation, Result.ToString()));
             HistoryViewChanged?.Invoke(historyItem);
         }
-
-        public void CheckZeroAndDot(string buttonContent, MainWindow mainWindow)
-        {
-            if (buttonContent == "0" && mainWindow.Dial.Text == "0")
-            {
-                return;
-            }
-
-            if (buttonContent == "," && mainWindow.Dial.Text.Contains(","))
-            {
-                return;
-            }
-        }
-
     }
 }

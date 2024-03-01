@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Calc.Model
 {
@@ -11,22 +12,18 @@ namespace Calc.Model
         public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Second;
+
             if (calculatorModel.CanBeRefreshed)
             {
                 if (buttonContent == ",")
                 {
-                    calculatorModel.DialText = "0,";
+                    calculatorModel.SetDialText("0,");
                 }
                 else
                 {
-                    calculatorModel.DialText = buttonContent;
+                    calculatorModel.SetDialText(buttonContent);
                     calculatorModel.CanBeRefreshed = false;
                 }
-            }
-
-            if (buttonContent == "," && calculatorModel.DialText.Contains(","))
-            {
-                return;
             }
         }
 
@@ -43,7 +40,7 @@ namespace Calc.Model
             {
                 calculatorModel.state = State.Result;
                 calculatorModel.MathOperator = buttonContent;
-                calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+                calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText));
                 calculatorModel.Calculate();
                 string v = calculatorModel.DialText + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
@@ -53,7 +50,7 @@ namespace Calc.Model
         public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
-            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText)); 
             calculatorModel.Calculate();
         }
     }

@@ -22,7 +22,7 @@ namespace Calc.Model
 
             if (calculatorModel.CanBeRefreshed && !buttonContent.EndsWith(","))
             {
-                calculatorModel.DialText = string.Empty;
+                calculatorModel.SetDialText(string.Empty);
             }
 
             calculatorModel.SetDialText(calculatorModel.DialText + buttonContent);

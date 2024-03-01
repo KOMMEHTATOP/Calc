@@ -14,13 +14,13 @@ namespace Calc.Model
             if (buttonContent == "=")
             {
                 calculatorModel.state = State.First;
-                calculatorModel.DialText = buttonContent;
+                calculatorModel.SetDialText(buttonContent);
                 calculatorModel.SetLastOperation(string.Empty);
             }
             else 
             {
                 calculatorModel.state = State.Opers;
-                calculatorModel.DialText = buttonContent;
+                calculatorModel.SetDialText(buttonContent);
                 string v = calculatorModel.Result + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
             }

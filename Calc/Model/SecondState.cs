@@ -20,14 +20,14 @@ namespace Calc.Model
             {
                 return;
             }
-
-            calculatorModel.SetDialText(buttonContent);
+            
+            calculatorModel.SetDialText(calculatorModel.DialText + buttonContent);
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Opers;
-            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText)); 
             calculatorModel.Calculate(); 
 
             calculatorModel.MathOperator = buttonContent;
@@ -37,7 +37,7 @@ namespace Calc.Model
         public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
-            calculatorModel.SecondNumber = double.Parse(calculatorModel.DialText);
+            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText));
             calculatorModel.Calculate();
         }
     }
