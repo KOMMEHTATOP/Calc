@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Calc.ViewModel
 {
@@ -37,22 +38,7 @@ namespace Calc.ViewModel
             Button button = sender as Button;
             string buttonContent = button.Content.ToString();
 
-            if (_calculatorModel.state == State.First)
-            {
-                _calculatorModel.firstState.OnNumberClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Opers)
-            {
-                _calculatorModel.opersState.OnNumberClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Second)
-            {
-                _calculatorModel.secondState.OnNumberClicked(buttonContent, _calculatorModel);
-            }
-            else
-            {
-                _calculatorModel.resultState.OnNumberClicked(buttonContent, _calculatorModel);
-            }
+            _calculatorModel.TrySetNumber(buttonContent);
             _mainWindow.Log(oldState, "Number_Click");
         }
     }

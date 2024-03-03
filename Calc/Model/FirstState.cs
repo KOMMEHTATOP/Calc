@@ -39,7 +39,7 @@ namespace Calc.Model
         }
         public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
         {
-
+            
         }
     }
 }

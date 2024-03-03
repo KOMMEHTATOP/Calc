@@ -22,6 +22,7 @@ namespace Calc.Model
             }
             
             calculatorModel.SetDialText(calculatorModel.DialText + buttonContent);
+            
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)

@@ -24,6 +24,7 @@ namespace Calc.Model
                 string v = calculatorModel.Result + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
             }
+            
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)

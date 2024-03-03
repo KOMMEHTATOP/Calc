@@ -28,7 +28,6 @@ namespace Calc.Model
         public bool CanBeRefreshed = true;
         public bool IsHistoryVisible = false;
         public List<HistoryItem> historyItems = new List<HistoryItem>();
-
         public FirstState firstState = new FirstState();
         public SecondState secondState = new SecondState();
         public OpersState opersState = new OpersState();
@@ -43,25 +42,25 @@ namespace Calc.Model
         public void SetDialText(string text)
         {
             DialText = text;
-            DialTextChanged.Invoke(text);
+            DialTextChanged?.Invoke(text);
         }
 
         public void SetLastOperation(string text)
         {
             LastOperation = text;
-            LastOpTextChanged.Invoke(text);
+            LastOpTextChanged?.Invoke(text);
         }
 
         public void SetSecondNumber(double secondNumber)
         {
             SecondNumber = secondNumber;
-            SecondNumberChanged.Invoke(secondNumber);
+            SecondNumberChanged?.Invoke(secondNumber);
         }
 
         public void SetFirstNumber(double firstNumber)
         {
             FirstNumber = firstNumber;
-            FirstNumberChanged.Invoke(firstNumber);
+            FirstNumberChanged?.Invoke(firstNumber);
         }
 
         public void Calculate()
@@ -92,5 +91,67 @@ namespace Calc.Model
             historyItems.Add(new HistoryItem(LastOperation, Result.ToString()));
             HistoryViewChanged?.Invoke(historyItem);
         }
+
+        public void TrySetNumber(string num)
+        {
+            if (state == State.First)
+            {
+                firstState.OnNumberClicked(num, this);
+            }
+            else if (state == State.Opers)
+            {
+                opersState.OnNumberClicked(num, this);
+            }
+            else if (state == State.Second)
+            {
+                secondState.OnNumberClicked(num, this);
+            }
+            else
+            {
+                resultState.OnNumberClicked(num, this);
+            }
+        }
+
+        public void TryOperator(string oper)
+        {
+            CanBeRefreshed = true;
+            if (state == State.First)
+            {
+                firstState.OnOperClicked(oper, this);
+            }
+            else if (state == State.Opers)
+            {
+                opersState.OnOperClicked(oper, this);
+            }
+            else if (state == State.Second)
+            {
+                secondState.OnOperClicked(oper, this);
+            }
+            else
+            {
+                resultState.OnOperClicked(oper, this);
+            }
+        }
+
+        public void TryResult()
+        {
+            if (state == State.First)
+            {
+                firstState.OnResultClicked(string.Empty, this);
+            }
+            else if (state == State.Opers)
+            {
+                opersState.OnResultClicked(string.Empty, this);
+            }
+            else if (state == State.Second)
+            {
+                secondState.OnResultClicked(string.Empty, this);
+            }
+            else
+            {
+                resultState.OnResultClicked(string.Empty, this);
+            }
+        }
+
     }
 }

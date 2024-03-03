@@ -29,18 +29,20 @@ namespace Calc
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewClickController controller = new ViewClickController(this, calculatorModel);
+            ViewClickController viewClickController = new ViewClickController(this, calculatorModel);
             ModelUpdateController modelUpdateController = new ModelUpdateController(this, calculatorModel);
-            controller.Subscribe();
+            ViewKeyDownController viewKeyDownController = new ViewKeyDownController(this, calculatorModel);
+            viewKeyDownController.Subscribe();
+            viewClickController.Subscribe();
             modelUpdateController.Subscribe();
         }
 
         public void Log(State oldState, string source)
         {
-            //MessageBox.Show($"{source} = {oldState} to {calculatorModel.state}, " +
-            //    $"first={calculatorModel.FirstNumber}, " +
-            //    $"second = {calculatorModel.SecondNumber} " +
-            //    $"result = {calculatorModel.Result} operator = {calculatorModel.MathOperator}");
+            MessageBox.Show($"{source} = {oldState} to {calculatorModel.state}, " +
+                $"first={calculatorModel.FirstNumber}, " +
+                $"second = {calculatorModel.SecondNumber} " +
+                $"result = {calculatorModel.Result} operator = {calculatorModel.MathOperator}");
         }
     }
 }

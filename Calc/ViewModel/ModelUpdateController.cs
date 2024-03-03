@@ -65,52 +65,18 @@ namespace Calc.ViewModel
 
         private void Oper_Click(object sender, RoutedEventArgs e)
         {
-            _calculatorModel.CanBeRefreshed = true;
-
             var oldState = _calculatorModel.state;
             Button button = sender as Button;
             string buttonContent = button.Content.ToString();
 
-            if (_calculatorModel.state == State.First)
-            {
-                _calculatorModel.firstState.OnOperClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Opers)
-            {
-                _calculatorModel.opersState.OnOperClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Second)
-            {
-                _calculatorModel.secondState.OnOperClicked(buttonContent, _calculatorModel);
-            }
-            else
-            {
-                _calculatorModel.resultState.OnOperClicked(buttonContent, _calculatorModel);
-            }
+            _calculatorModel.TryOperator(buttonContent);
             _mainWindow.Log(oldState, "Oper_Click");
         }
 
         private void Result_Click(object sender, RoutedEventArgs e)
         {
             var oldState = _calculatorModel.state;
-            Button button = sender as Button;
-            string buttonContent = button.Content.ToString();
-            if (_calculatorModel.state == State.First)
-            {
-                _calculatorModel.firstState.OnResultClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Opers)
-            {
-                _calculatorModel.opersState.OnResultClicked(buttonContent, _calculatorModel);
-            }
-            else if (_calculatorModel.state == State.Second)
-            {
-                _calculatorModel.secondState.OnResultClicked(buttonContent, _calculatorModel);
-            }
-            else
-            {
-                _calculatorModel.resultState.OnResultClicked(buttonContent, _calculatorModel);
-            }
+            _calculatorModel.TryResult();
             _mainWindow.Log(oldState, "Result_Click");
         }
 
@@ -127,9 +93,10 @@ namespace Calc.ViewModel
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-            if (_mainWindow.Dial.Text.Length > 0)
+            if (_calculatorModel.DialText.Length > 0)
             {
-                _mainWindow.Dial.Text = _mainWindow.Dial.Text.Remove(_mainWindow.Dial.Text.Length - 1);
+                string v = _calculatorModel.DialText.Remove(_calculatorModel.DialText.Length - 1);
+                _calculatorModel.SetDialText(v);
             }
         }
 
