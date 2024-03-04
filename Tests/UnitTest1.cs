@@ -1,3 +1,4 @@
+using Calc;
 using Calc.Model;
 using NUnit.Framework.Legacy;
 namespace Tests
@@ -130,7 +131,20 @@ namespace Tests
         }
 
         [Test]
-        public void FirstNumAfterResult()
+        public void InputNumAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("-");
+            calculatorModel.TrySetNumber("21");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("5");
+            Assert.That(condition: calculatorModel.DialText == "5");
+        }
+
+        [Test]
+        public void LastOperationInputNumAfterResult()
         {
             CalculatorModel calculatorModel = new CalculatorModel();
 
@@ -140,6 +154,55 @@ namespace Tests
             calculatorModel.TryResult();
             calculatorModel.TrySetNumber("5");
             Assert.That(condition: calculatorModel.LastOperation == string.Empty);
+        }
+
+        [Test]
+        public void CheckFirstNumAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("-");
+            calculatorModel.TrySetNumber("21");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("5");
+            calculatorModel.TryOperator("-");
+            Assert.That(calculatorModel.FirstNumber, Is.EqualTo(5));
+        }
+
+        [Test]
+        public void CheckSecondNumAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("-");
+            calculatorModel.TrySetNumber("21");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("55");
+            calculatorModel.TryOperator("-");
+            calculatorModel.TrySetNumber("5");
+            calculatorModel.TryResult();
+            Assert.That(calculatorModel.Result, Is.EqualTo(50));
+        }
+
+        [Test]
+        public void CheckRefresh()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryResult();
+            
+            Assert.That(calculatorModel.state, Is.EqualTo(State.First));
+            Assert.That(calculatorModel.FirstNumber, Is.EqualTo(0));
+            Assert.That(calculatorModel.MathOperator, Is.EqualTo("+"));
+            Assert.That(calculatorModel.SecondNumber, Is.EqualTo(0));
+            Assert.That(calculatorModel.Result, Is.EqualTo(0));
+            Assert.That(calculatorModel.LastOperation, Is.EqualTo(string.Empty));
+            Assert.That(calculatorModel.CanBeRefreshed, Is.EqualTo(true));
         }
     }
 }

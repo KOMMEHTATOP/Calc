@@ -17,14 +17,12 @@ namespace Calc.Model
                 calculatorModel.SetDialText(buttonContent);
                 calculatorModel.SetLastOperation(string.Empty);
             }
-            else 
+            else
             {
                 calculatorModel.state = State.Opers;
                 calculatorModel.SetDialText(buttonContent);
-                string v = calculatorModel.Result + calculatorModel.MathOperator;
-                calculatorModel.SetLastOperation(v);
+                calculatorModel.SetLastOperation(string.Empty);
             }
-            
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
@@ -37,7 +35,7 @@ namespace Calc.Model
             calculatorModel.SetLastOperation(v);
         }
 
-        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
+        public void OnResultClicked(CalculatorModel calculatorModel)
         {
             calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
             calculatorModel.Calculate();

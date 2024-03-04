@@ -33,6 +33,7 @@ namespace Calc.Model
             {
                 calculatorModel.state = State.Opers;
                 calculatorModel.MathOperator = buttonContent;
+                calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
                 string v = calculatorModel.DialText + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
             }
@@ -47,7 +48,7 @@ namespace Calc.Model
             }
         }
 
-        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
+        public void OnResultClicked(CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
             calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText)); 

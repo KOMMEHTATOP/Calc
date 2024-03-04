@@ -22,7 +22,6 @@ namespace Calc.Model
             }
             
             calculatorModel.SetDialText(calculatorModel.DialText + buttonContent);
-            
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
@@ -35,7 +34,7 @@ namespace Calc.Model
             calculatorModel.SetFirstNumber(calculatorModel.Result);
         }
 
-        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
+        public void OnResultClicked(CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
             calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText));

@@ -37,7 +37,7 @@ namespace Calc.Model
             calculatorModel.SetLastOperation(v);
             calculatorModel.SetDialText(calculatorModel.FirstNumber.ToString());
         }
-        public void OnResultClicked(string buttonContent, CalculatorModel calculatorModel)
+        public void OnResultClicked(CalculatorModel calculatorModel)
         {
             
         }

@@ -16,6 +16,7 @@ namespace Calc.Model
     public delegate void FirstNumberChanged(double firstNumber);
     public delegate void SecondNumberChanged(double secondNumber);
 
+
     public class CalculatorModel
     {
         public State state { get; set; } = State.First;
@@ -38,6 +39,8 @@ namespace Calc.Model
         public event HistoryViewChanged HistoryViewChanged;
         public event FirstNumberChanged FirstNumberChanged;
         public event SecondNumberChanged SecondNumberChanged;
+
+
 
         public void SetDialText(string text)
         {
@@ -137,19 +140,19 @@ namespace Calc.Model
         {
             if (state == State.First)
             {
-                firstState.OnResultClicked(string.Empty, this);
+                firstState.OnResultClicked(this);
             }
             else if (state == State.Opers)
             {
-                opersState.OnResultClicked(string.Empty, this);
+                opersState.OnResultClicked(this);
             }
             else if (state == State.Second)
             {
-                secondState.OnResultClicked(string.Empty, this);
+                secondState.OnResultClicked(this);
             }
             else
             {
-                resultState.OnResultClicked(string.Empty, this);
+                resultState.OnResultClicked(this);
             }
         }
 
