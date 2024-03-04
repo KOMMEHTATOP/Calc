@@ -15,6 +15,7 @@ namespace Calc.Model
     public delegate void HistoryViewChanged(HistoryItem historyItem);
     public delegate void FirstNumberChanged(double firstNumber);
     public delegate void SecondNumberChanged(double secondNumber);
+    public delegate void RefreshChanged();
 
 
     public class CalculatorModel
@@ -39,8 +40,19 @@ namespace Calc.Model
         public event HistoryViewChanged HistoryViewChanged;
         public event FirstNumberChanged FirstNumberChanged;
         public event SecondNumberChanged SecondNumberChanged;
+        public event RefreshChanged RefreshChanged;
 
-
+        public void RefreshOn()
+        {
+            state = State.First;
+            Result = 0;
+            SetDialText(Result.ToString());
+            SetFirstNumber(0);
+            SetSecondNumber(0);
+            SetLastOperation(string.Empty);
+            CanBeRefreshed = true;
+            MathOperator = string.Empty;
+        }
 
         public void SetDialText(string text)
         {

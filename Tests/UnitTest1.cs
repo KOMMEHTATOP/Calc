@@ -195,14 +195,32 @@ namespace Tests
             calculatorModel.TryOperator("+");
             calculatorModel.TrySetNumber("22");
             calculatorModel.TryResult();
-            
+            calculatorModel.RefreshOn();
             Assert.That(calculatorModel.state, Is.EqualTo(State.First));
             Assert.That(calculatorModel.FirstNumber, Is.EqualTo(0));
-            Assert.That(calculatorModel.MathOperator, Is.EqualTo("+"));
+            Assert.That(calculatorModel.MathOperator, Is.EqualTo(string.Empty));
             Assert.That(calculatorModel.SecondNumber, Is.EqualTo(0));
             Assert.That(calculatorModel.Result, Is.EqualTo(0));
             Assert.That(calculatorModel.LastOperation, Is.EqualTo(string.Empty));
             Assert.That(calculatorModel.CanBeRefreshed, Is.EqualTo(true));
         }
+
+        [Test]
+        public void CheckResultAfterRefresh()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryResult();
+            Assert.That(calculatorModel.Result, Is.EqualTo(44));
+            Assert.That(calculatorModel.DialText, Is.EqualTo("44"));
+        }
+
     }
 }
