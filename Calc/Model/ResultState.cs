@@ -17,6 +17,13 @@ namespace Calc.Model
                 calculatorModel.SetDialText(buttonContent);
                 calculatorModel.SetLastOperation(string.Empty);
             }
+            if (buttonContent==",")
+            {
+                calculatorModel.state = State.First;
+                calculatorModel.SetDialText("0" + buttonContent);
+                calculatorModel.SetLastOperation(string.Empty);
+                calculatorModel.CanBeRefreshed = false;
+            }
             else
             {
                 calculatorModel.state = State.Opers;
