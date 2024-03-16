@@ -25,6 +25,13 @@ namespace Calc.Model
                     calculatorModel.CanBeRefreshed = false;
                 }
             }
+            else
+            {
+//вот это не покрыл тестом
+                calculatorModel.SetDialText(calculatorModel.DialText + buttonContent);
+                calculatorModel.state = State.Opers;
+                calculatorModel.CanBeRefreshed = false;
+            }
         }
 
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)

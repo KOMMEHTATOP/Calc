@@ -222,5 +222,49 @@ namespace Tests
             Assert.That(calculatorModel.DialText, Is.EqualTo("44"));
         }
 
+        [Test]
+        public void CheckModelSecondNumAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("1");
+            calculatorModel.TryResult();
+            Assert.That(calculatorModel.Result, Is.EqualTo(23));
+            Assert.That(calculatorModel.DialText, Is.EqualTo("23"));
+        }
+
+        [Test]
+        public void InputNumAndOperatorAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("22");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber("1");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TryResult();
+            Assert.That(calculatorModel.Result, Is.EqualTo(2));
+            Assert.That(calculatorModel.DialText, Is.EqualTo("2"));
+        }
+
+        [Test]
+        public void InputDotInFirstNumAfterResult()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber(",6");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber(",4");
+            calculatorModel.TryResult();
+            calculatorModel.TrySetNumber(",");
+            Assert.That(calculatorModel.DialText, Is.EqualTo("0,"));
+        }
+
     }
 }
