@@ -27,7 +27,7 @@ namespace Calc.Model
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Opers;
-            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText)); 
+            calculatorModel.SetSecondNumber(decimal.Parse(calculatorModel.DialText)); 
             calculatorModel.Calculate(); 
 
             calculatorModel.MathOperator = buttonContent;
@@ -37,7 +37,7 @@ namespace Calc.Model
         public void OnResultClicked(CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
-            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText));
+            calculatorModel.SetSecondNumber(decimal.Parse(calculatorModel.DialText));
             calculatorModel.Calculate();
         }
     }

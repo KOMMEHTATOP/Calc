@@ -20,21 +20,6 @@ namespace Calc.ViewModel
             _calculatorModel = calculatorModel;
         }
 
-        //private void CheckKeyNumber(Key key, string num)
-        //{
-        //    if (_calculatorModel.DialText == "0" && _calculatorModel.CanBeRefreshed)
-        //    {
-        //        _calculatorModel.SetDialText(string.Empty);
-        //        _calculatorModel.CanBeRefreshed = false;
-        //    }
-        //    if (key == Key.Decimal && _calculatorModel.DialText.Contains(","))
-        //    {
-        //        return;
-        //    }
-
-        //    _calculatorModel.SetDialText(_calculatorModel.DialText + num);
-        //}
-
         private void _mainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             switch (e.Key)
@@ -78,8 +63,17 @@ namespace Calc.ViewModel
                 case Key.Subtract:
                     _calculatorModel.TryOperator("-");
                     break;
+                case Key.Multiply:
+                    _calculatorModel.TryOperator("*");
+                    break;
+                case Key.Divide:
+                    _calculatorModel.TryOperator("/");
+                    break;
                 case Key.Enter:
                     _calculatorModel.TryResult();
+                    break;
+                case Key.Delete:
+                    _calculatorModel.RefreshOn();
                     break;
                 default:
                     break;

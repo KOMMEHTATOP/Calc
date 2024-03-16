@@ -32,7 +32,7 @@ namespace Calc.Model
         {
             calculatorModel.state = State.Opers;
             calculatorModel.MathOperator = buttonContent;
-            calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
+            calculatorModel.SetFirstNumber(decimal.Parse(calculatorModel.DialText));
             string v = calculatorModel.FirstNumber + calculatorModel.MathOperator;
             calculatorModel.SetLastOperation(v);
             calculatorModel.SetDialText(calculatorModel.FirstNumber.ToString());

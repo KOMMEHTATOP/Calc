@@ -13,20 +13,18 @@ namespace Calc.Model
     public delegate void DialTextChanged(string text);
     public delegate void LastOpTextChanged(string text);
     public delegate void HistoryViewChanged(HistoryItem historyItem);
-    public delegate void FirstNumberChanged(double firstNumber);
-    public delegate void SecondNumberChanged(double secondNumber);
-    public delegate void RefreshChanged();
-
+    public delegate void FirstNumberChanged(decimal firstNumber);
+    public delegate void SecondNumberChanged(decimal secondNumber);
 
     public class CalculatorModel
     {
         public State state { get; set; } = State.First;
         public string DialText { get; private set; } = "0";
         public string LastOperation { get; private set; }
-        public double FirstNumber { get; private set; }
-        public double SecondNumber { get; private set; }
+        public decimal FirstNumber { get; private set; }
+        public decimal SecondNumber { get; private set; }
         public string MathOperator;
-        public double Result;
+        public decimal Result;
         public bool CanBeRefreshed = true;
         public bool IsHistoryVisible = false;
         public List<HistoryItem> historyItems = new List<HistoryItem>();
@@ -40,7 +38,6 @@ namespace Calc.Model
         public event HistoryViewChanged HistoryViewChanged;
         public event FirstNumberChanged FirstNumberChanged;
         public event SecondNumberChanged SecondNumberChanged;
-        public event RefreshChanged RefreshChanged;
 
         public void RefreshOn()
         {
@@ -66,13 +63,13 @@ namespace Calc.Model
             LastOpTextChanged?.Invoke(text);
         }
 
-        public void SetSecondNumber(double secondNumber)
+        public void SetSecondNumber(decimal secondNumber)
         {
             SecondNumber = secondNumber;
             SecondNumberChanged?.Invoke(secondNumber);
         }
 
-        public void SetFirstNumber(double firstNumber)
+        public void SetFirstNumber(decimal firstNumber)
         {
             FirstNumber = firstNumber;
             FirstNumberChanged?.Invoke(firstNumber);
@@ -82,20 +79,21 @@ namespace Calc.Model
         {
             if (MathOperator == "+")
             {
-                Result = Math.Round(FirstNumber + SecondNumber, 2);
+                Result = FirstNumber + SecondNumber;
             }
             else if (MathOperator == "-")
             {
-                Result = Math.Round(FirstNumber - SecondNumber, 2);
+                Result = FirstNumber - SecondNumber;
             }
             else if (MathOperator == "*")
             {
-                Result = Math.Round(FirstNumber * SecondNumber, 2);
+                Result = FirstNumber * SecondNumber;
             }
             else if (MathOperator == "/")
             {
-                Result = Math.Round(FirstNumber / SecondNumber, 2);
+                Result = FirstNumber / SecondNumber;
             }
+
 
             SetDialText(Result.ToString());
 

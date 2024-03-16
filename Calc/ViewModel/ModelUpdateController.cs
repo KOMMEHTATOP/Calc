@@ -30,12 +30,12 @@ namespace Calc.ViewModel
             _calculatorModel.SecondNumberChanged += OnSecondNumberChanged;
         }
 
-        private void OnSecondNumberChanged(double secondNumber)
+        private void OnSecondNumberChanged(decimal secondNumber)
         {
 
         }
 
-        private void OnFirstNumberChanged(double firstNumber)
+        private void OnFirstNumberChanged(decimal firstNumber)
         {
 
         }

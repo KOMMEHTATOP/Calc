@@ -40,7 +40,7 @@ namespace Calc.Model
             {
                 calculatorModel.state = State.Opers;
                 calculatorModel.MathOperator = buttonContent;
-                calculatorModel.SetFirstNumber(double.Parse(calculatorModel.DialText));
+                calculatorModel.SetFirstNumber(decimal.Parse(calculatorModel.DialText));
                 string v = calculatorModel.DialText + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
             }
@@ -48,7 +48,7 @@ namespace Calc.Model
             {
                 calculatorModel.state = State.Result;
                 calculatorModel.MathOperator = buttonContent;
-                calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText));
+                calculatorModel.SetSecondNumber(decimal.Parse(calculatorModel.DialText));
                 calculatorModel.Calculate();
                 string v = calculatorModel.DialText + calculatorModel.MathOperator;
                 calculatorModel.SetLastOperation(v);
@@ -58,7 +58,7 @@ namespace Calc.Model
         public void OnResultClicked(CalculatorModel calculatorModel)
         {
             calculatorModel.state = State.Result;
-            calculatorModel.SetSecondNumber(double.Parse(calculatorModel.DialText)); 
+            calculatorModel.SetSecondNumber(decimal.Parse(calculatorModel.DialText)); 
             calculatorModel.Calculate();
         }
     }
