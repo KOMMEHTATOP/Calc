@@ -16,7 +16,7 @@
         <StackPanel>
             <Button x:Name="History" Height="40" Width="40" HorizontalAlignment="Right"/>
             <TextBlock x:Name="LastOperation" FontSize="20" TextAlignment="Right" Margin="0,10,0,0"/>
-            <TextBlock x:Name="Dial" FontSize="50" TextAlignment="Right"/>
+            <TextBlock x:Name="Dial" FontSize="40" TextAlignment="Right"/>
         </StackPanel>
 
         <Grid x:Name="GridButtons" Grid.Row="1">
@@ -45,9 +45,9 @@
             <Button x:Name="RefreshAll" Content="C" Grid.Column="2" Grid.Row="0"/>
             <Button x:Name="Delete" Content="ᐸ" Grid.Column="3" Grid.Row="0"/>
             <Button Content="+/-" Grid.Column="0" Grid.Row="5"/>
-            <Button Content="1/x" Grid.Column="0" Grid.Row="1"/>
-            <Button Content="x2" Grid.Column="1" Grid.Row="1"/>
-            <Button Content="2rx" Grid.Column="2" Grid.Row="1"/>
+            <Button x:Name="DivideOne" Content="1/x" Grid.Column="0" Grid.Row="1"/>
+            <Button x:Name="Sqr" Content="x2" Grid.Column="1" Grid.Row="1"/>
+            <Button x:Name="KorenDva" Content="²√ₓ" Grid.Column="2" Grid.Row="1"/>
             <Button Content="%" Grid.Column="0" Grid.Row="0"/>
 
             <Grid x:Name="OnlyNumbers" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="4">

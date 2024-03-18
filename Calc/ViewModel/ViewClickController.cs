@@ -1,14 +1,6 @@
 ﻿using Calc.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-
 namespace Calc.ViewModel
 {
     public class ViewClickController
@@ -34,6 +26,9 @@ namespace Calc.ViewModel
             _mainWindow.Minus.Click += Oper_Click;
             _mainWindow.Multiply.Click += Oper_Click;
             _mainWindow.Divide.Click += Oper_Click;
+            _mainWindow.DivideOne.Click += Oper_Click;
+            _mainWindow.Sqr.Click += Oper_Click;
+            _mainWindow.KorenDva.Click += Oper_Click;
             _mainWindow.Result.Click += Result_Click;
             _mainWindow.RefreshAll.Click += Refresh_Click;
             _mainWindow.Delete.Click += Delete_Click;

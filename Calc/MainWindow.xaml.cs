@@ -1,17 +1,7 @@
 ﻿using Calc.Model;
 using Calc.ViewModel;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace Calc
 {
@@ -39,10 +29,10 @@ namespace Calc
 
         public void Log(State oldState, string source)
         {
-            /*MessageBox.Show($"{source} = {oldState} to {calculatorModel.state}, " +
-                $"first={calculatorModel.FirstNumber}, " +
-                $"second = {calculatorModel.SecondNumber} " +
-                $"result = {calculatorModel.Result} operator = {calculatorModel.MathOperator}");*/
+            //MessageBox.Show($"{source} = {oldState} to {calculatorModel.state}, " +
+            //    $"first={calculatorModel.FirstNumber}, " +
+            //    $"second = {calculatorModel.SecondNumber} " +
+            //    $"result = {calculatorModel.Result} operator = {calculatorModel.MathOperator}");
         }
     }
 }

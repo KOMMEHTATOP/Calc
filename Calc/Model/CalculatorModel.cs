@@ -39,6 +39,16 @@ namespace Calc.Model
         public event FirstNumberChanged FirstNumberChanged;
         public event SecondNumberChanged SecondNumberChanged;
 
+        public Dictionary<State, IState> stateDic = new Dictionary<State, IState>();
+
+        public CalculatorModel()
+        {
+            stateDic[State.First] = new FirstState();
+            stateDic[State.Second] = new SecondState();
+            stateDic[State.Opers] = new OpersState();
+            stateDic[State.Result] = new ResultState();
+        }
+
         public void RefreshOn()
         {
             state = State.First;
@@ -77,7 +87,39 @@ namespace Calc.Model
 
         public void Calculate()
         {
-            if (MathOperator == "+")
+            //вот это не покрыл тестом
+            if (MathOperator == "1/x")
+            {
+                SetFirstNumber(decimal.Parse(DialText));
+                Result = 1m / FirstNumber;
+                SetLastOperation($"1 / ({FirstNumber})");
+                SetDialText(Result.ToString());
+                state = State.Result;
+                return;
+            }
+            //вот это не покрыл тестом
+            if (MathOperator == "x2")
+            {
+                SetFirstNumber(decimal.Parse(DialText));
+                Result = FirstNumber * FirstNumber;
+                SetLastOperation($"sqr({FirstNumber})");
+                SetDialText(Result.ToString());
+                state = State.Result;
+                return;
+            }
+            //вот это не покрыл тестом
+            if (MathOperator == "²√ₓ")
+            {
+                SetFirstNumber(decimal.Parse(DialText));
+                Result = (decimal)Math.Sqrt((double)FirstNumber);
+                SetLastOperation($"²√({FirstNumber})");
+                SetDialText(Result.ToString());
+                state = State.Result;
+                return;
+            }
+
+
+            else if (MathOperator == "+")
             {
                 Result = FirstNumber + SecondNumber;
             }
@@ -94,9 +136,7 @@ namespace Calc.Model
                 Result = FirstNumber / SecondNumber;
             }
 
-
             SetDialText(Result.ToString());
-
             LastOperation = FirstNumber + MathOperator + SecondNumber + "=";
             LastOpTextChanged?.Invoke(LastOperation);
 
@@ -107,6 +147,10 @@ namespace Calc.Model
 
         public void TrySetNumber(string num)
         {
+            //states[state].OnNumberClicked(num, this); после реализации интерфейса будет примерно так. 
+            //IState currentState = stateDic[state];
+            //currentState.OnNumberClicked(num, this);
+
             if (state == State.First)
             {
                 firstState.OnNumberClicked(num, this);
@@ -165,6 +209,5 @@ namespace Calc.Model
                 resultState.OnResultClicked(this);
             }
         }
-
     }
 }

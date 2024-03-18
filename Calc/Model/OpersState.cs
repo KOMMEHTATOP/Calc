@@ -7,10 +7,11 @@ using System.Windows;
 
 namespace Calc.Model
 {
-    public class OpersState
+    public class OpersState : IState
     {
         public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
+            
             calculatorModel.state = State.Second;
 
             if (calculatorModel.CanBeRefreshed)

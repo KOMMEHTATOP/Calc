@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Calc.Model
 {
-    public class FirstState
+    public class FirstState : IState
     {
         public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
@@ -30,6 +30,26 @@ namespace Calc.Model
         }
         public void OnOperClicked(string buttonContent, CalculatorModel calculatorModel)
         {
+            if (buttonContent == "1/x")
+            {
+                calculatorModel.MathOperator = "1/x";
+                calculatorModel.Calculate();
+                return;
+            }
+            if (buttonContent == "x2")
+            {
+                calculatorModel.MathOperator = "x2";
+                calculatorModel.Calculate();
+                return;
+            }
+            if (buttonContent == "²√ₓ")
+            {
+                calculatorModel.MathOperator = "²√ₓ";
+                calculatorModel.Calculate();
+                return;
+            }
+
+
             calculatorModel.state = State.Opers;
             calculatorModel.MathOperator = buttonContent;
             calculatorModel.SetFirstNumber(decimal.Parse(calculatorModel.DialText));

@@ -19,7 +19,7 @@ namespace Tests
             calculatorModel.TryOperator("+");
             calculatorModel.TrySetNumber("22");
             calculatorModel.TryResult();
-            double res = calculatorModel.Result;
+            decimal res = calculatorModel.Result;
             Assert.That(res, Is.EqualTo(44));
         }
 
@@ -32,7 +32,7 @@ namespace Tests
             calculatorModel.TryOperator("-");
             calculatorModel.TrySetNumber("21");
             calculatorModel.TryResult();
-            double res = calculatorModel.Result;
+            decimal res = calculatorModel.Result;
             Assert.That(res, Is.EqualTo(1));
         }
 

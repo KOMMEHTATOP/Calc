@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace Calc.Model
 {
-    public class ResultState
+    public class ResultState : IState
     {
         public void OnNumberClicked(string buttonContent, CalculatorModel calculatorModel)
         {
