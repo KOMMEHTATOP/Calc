@@ -266,5 +266,38 @@ namespace Tests
             Assert.That(calculatorModel.DialText, Is.EqualTo("0,"));
         }
 
+        [Test]
+        public void ReciprocalOperator()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("9");
+            calculatorModel.TryOperator("1/x");
+            decimal pogreshnost = 1e-9m;
+            decimal a = calculatorModel.Result;
+            decimal b = 1 / 9m;
+            decimal diff = Math.Abs(a - b);
+            Assert.That(diff < pogreshnost, $"diff == {diff} a={a}  b ={b}");
+            Assert.That(calculatorModel.LastOperation, Is.EqualTo("1 / (9)"));
+        }
+
+        [Test]
+        //не работает как нужно, ввод идет с кликов, а нужно с клавы.
+        public void ResultAfterRefreshOnKey()
+        {
+            CalculatorModel calculatorModel = new CalculatorModel();
+
+            calculatorModel.TrySetNumber("2");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("4");
+            calculatorModel.TryResult();
+            calculatorModel.RefreshOn();
+            calculatorModel.TrySetNumber("2");
+            calculatorModel.TryOperator("+");
+            calculatorModel.TrySetNumber("4");
+            calculatorModel.TryResult();
+            Assert.That(calculatorModel.Result, Is.EqualTo(6));
+        }
+
     }
 }

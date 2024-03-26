@@ -148,25 +148,26 @@ namespace Calc.Model
         public void TrySetNumber(string num)
         {
             //states[state].OnNumberClicked(num, this); после реализации интерфейса будет примерно так. 
-            //IState currentState = stateDic[state];
-            //currentState.OnNumberClicked(num, this);
 
-            if (state == State.First)
-            {
-                firstState.OnNumberClicked(num, this);
-            }
-            else if (state == State.Opers)
-            {
-                opersState.OnNumberClicked(num, this);
-            }
-            else if (state == State.Second)
-            {
-                secondState.OnNumberClicked(num, this);
-            }
-            else
-            {
-                resultState.OnNumberClicked(num, this);
-            }
+            IState currentState = stateDic[state];
+            currentState.OnNumberClicked(num, this);
+
+            //if (state == State.First)
+            //{
+            //    firstState.OnNumberClicked(num, this);
+            //}
+            //else if (state == State.Opers)
+            //{
+            //    opersState.OnNumberClicked(num, this);
+            //}
+            //else if (state == State.Second)
+            //{
+            //    secondState.OnNumberClicked(num, this);
+            //}
+            //else
+            //{
+            //    resultState.OnNumberClicked(num, this);
+            //}
         }
 
         public void TryOperator(string oper)
