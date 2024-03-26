@@ -79,7 +79,8 @@
                      Grid.ColumnSpan="4" Grid.RowSpan="6"
                      Visibility="Collapsed"
                      TextBlock.TextAlignment="Right"  
-                     HorizontalContentAlignment="Right">
+                     HorizontalContentAlignment="Right"
+                     Background="Azure">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel>
