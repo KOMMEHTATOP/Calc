@@ -59,6 +59,7 @@ namespace Calc.Model
             SetLastOperation(string.Empty);
             CanBeRefreshed = true;
             MathOperator = string.Empty;
+            //MessageBox.Show($"State {state} Result {Result} FirstNum {FirstNumber} Second {SecondNumber} MathOper {MathOperator}");
         }
 
         public void SetDialText(string text)
@@ -147,67 +148,21 @@ namespace Calc.Model
 
         public void TrySetNumber(string num)
         {
-            //states[state].OnNumberClicked(num, this); после реализации интерфейса будет примерно так. 
-            //IState currentState = stateDic[state];
-            //currentState.OnNumberClicked(num, this);
-
-            if (state == State.First)
-            {
-                firstState.OnNumberClicked(num, this);
-            }
-            else if (state == State.Opers)
-            {
-                opersState.OnNumberClicked(num, this);
-            }
-            else if (state == State.Second)
-            {
-                secondState.OnNumberClicked(num, this);
-            }
-            else
-            {
-                resultState.OnNumberClicked(num, this);
-            }
+            IState currentState = stateDic[state];
+            currentState.OnNumberClicked(num, this);
         }
 
         public void TryOperator(string oper)
         {
             CanBeRefreshed = true;
-            if (state == State.First)
-            {
-                firstState.OnOperClicked(oper, this);
-            }
-            else if (state == State.Opers)
-            {
-                opersState.OnOperClicked(oper, this);
-            }
-            else if (state == State.Second)
-            {
-                secondState.OnOperClicked(oper, this);
-            }
-            else
-            {
-                resultState.OnOperClicked(oper, this);
-            }
+            IState currentState = stateDic[state];
+            currentState.OnOperClicked(oper, this);
         }
 
         public void TryResult()
         {
-            if (state == State.First)
-            {
-                firstState.OnResultClicked(this);
-            }
-            else if (state == State.Opers)
-            {
-                opersState.OnResultClicked(this);
-            }
-            else if (state == State.Second)
-            {
-                secondState.OnResultClicked(this);
-            }
-            else
-            {
-                resultState.OnResultClicked(this);
-            }
+            IState currentState = stateDic[state];
+            currentState.OnResultClicked(this);
         }
     }
 }

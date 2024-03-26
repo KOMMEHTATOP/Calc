@@ -1,6 +1,9 @@
 ﻿using Calc.Model;
+using NUnit.Framework.Constraints;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 namespace Calc.ViewModel
 {
     public class ViewClickController
@@ -19,22 +22,34 @@ namespace Calc.ViewModel
             {
                 if (item is Button button)
                 {
+                    button.Focusable = false;
                     button.Click += Number_Click;
                 }
             }
             _mainWindow.Plus.Click += Oper_Click;
+            _mainWindow.Plus.Focusable = false;
             _mainWindow.Minus.Click += Oper_Click;
+            _mainWindow.Minus.Focusable = false;
             _mainWindow.Multiply.Click += Oper_Click;
+            _mainWindow.Multiply.Focusable = false;
             _mainWindow.Divide.Click += Oper_Click;
+            _mainWindow.Divide.Focusable = false;
             _mainWindow.DivideOne.Click += Oper_Click;
+            _mainWindow.DivideOne.Focusable = false;
             _mainWindow.Sqr.Click += Oper_Click;
+            _mainWindow.Sqr.Focusable = false;
             _mainWindow.KorenDva.Click += Oper_Click;
+            _mainWindow.KorenDva.Focusable = false;
             _mainWindow.Result.Click += Result_Click;
+            _mainWindow.Result.Focusable = false;
             _mainWindow.RefreshAll.Click += Refresh_Click;
+            _mainWindow.RefreshAll.Focusable = false;
             _mainWindow.Delete.Click += Delete_Click;
+            _mainWindow.Delete.Focusable = false;
             _mainWindow.History.Click += History_Click;
-
+            _mainWindow.History.Focusable = false;
         }
+
         private void Oper_Click(object sender, RoutedEventArgs e)
         {
             var oldState = _calculatorModel.state;
@@ -55,15 +70,9 @@ namespace Calc.ViewModel
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            _calculatorModel.state = State.First;
-            _calculatorModel.Result = 0;
-            _calculatorModel.SetDialText(_calculatorModel.Result.ToString());
-            _calculatorModel.SetFirstNumber(0);
-            _calculatorModel.SetSecondNumber(0);
-            _calculatorModel.SetLastOperation(string.Empty);
-            _calculatorModel.CanBeRefreshed = true;
-            _calculatorModel.MathOperator = string.Empty;
+            _calculatorModel.RefreshOn();
         }
+
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
             if (_calculatorModel.DialText.Length > 0)
@@ -97,5 +106,5 @@ namespace Calc.ViewModel
         }
     }
 }
-    
+
 
