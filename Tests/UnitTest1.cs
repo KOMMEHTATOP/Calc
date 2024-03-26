@@ -282,7 +282,7 @@ namespace Tests
         }
 
         [Test]
-        //не работает как нужно, ввод идет с кликов, а нужно с клавы.
+        //не работает как нужно, ввод идет с кликов, а нужно с клавы. Ошибка именно в смене вида ввода С.
         public void ResultAfterRefreshOnKey()
         {
             CalculatorModel calculatorModel = new CalculatorModel();

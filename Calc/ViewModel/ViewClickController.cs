@@ -1,4 +1,5 @@
 ﻿using Calc.Model;
+using NUnit.Framework.Constraints;
 using System.Windows;
 using System.Windows.Controls;
 namespace Calc.ViewModel
@@ -55,14 +56,7 @@ namespace Calc.ViewModel
 
         private void Refresh_Click(object sender, RoutedEventArgs e)
         {
-            _calculatorModel.state = State.First;
-            _calculatorModel.Result = 0;
-            _calculatorModel.SetDialText(_calculatorModel.Result.ToString());
-            _calculatorModel.SetFirstNumber(0);
-            _calculatorModel.SetSecondNumber(0);
-            _calculatorModel.SetLastOperation(string.Empty);
-            _calculatorModel.CanBeRefreshed = true;
-            _calculatorModel.MathOperator = string.Empty;
+            _calculatorModel.RefreshOn();
         }
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
